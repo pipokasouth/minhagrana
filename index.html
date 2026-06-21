@@ -558,6 +558,7 @@
     .badge.green { background: var(--accent-light); color: var(--accent); }
     .badge.red   { background: var(--danger-light);  color: var(--danger); }
     .badge.blue  { background: var(--blue-light);    color: var(--blue); }
+    .badge.orange { background: var(--warn-light);   color: var(--warn); }
 
     /* ─── ANNUAL VIEW ─── */
     .annual-summary {
@@ -1194,6 +1195,7 @@ const ICONS_MAP   = {'ti-plane':'✈','ti-home':'🏠','ti-car':'🚗','ti-schoo
 let syncDebounceTimer = null;
 let syncInFlight = false;
 let lastSyncOk = null; // null = nunca tentou, true/false = resultado da última tentativa
+let needsReconnect = false; // true quando o token expirou e precisa de um toque do usuário
 
 function save() {
   try { localStorage.setItem('mgrana_state_v2', JSON.stringify(state)); } catch(e) {}
@@ -1211,9 +1213,13 @@ function load() {
 }
 
 function scheduleDriveSync() {
-  if (!DriveSync.isConnected()) return;
+  if (!DriveSync.isConnected() || needsReconnect) return;
   clearTimeout(syncDebounceTimer);
   syncDebounceTimer = setTimeout(() => { pushStateToDrive(); }, 2500);
+}
+
+function isAuthError(e) {
+  return e && (e.message === 'not-authenticated' || e.message === 'token-expired');
 }
 
 async function pushStateToDrive() {
@@ -1223,11 +1229,13 @@ async function pushStateToDrive() {
   try {
     const ok = await DriveSync.pushToDrive(state);
     lastSyncOk = ok;
+    needsReconnect = false;
   } catch (e) {
     lastSyncOk = false;
+    if (isAuthError(e)) needsReconnect = true;
   } finally {
     syncInFlight = false;
-    updateSyncStatusBadge(lastSyncOk ? 'synced' : 'error');
+    updateSyncStatusBadge(needsReconnect ? 'needs-reconnect' : (lastSyncOk ? 'synced' : 'error'));
   }
 }
 
@@ -1246,26 +1254,44 @@ async function pullStateFromDrive(silent) {
       renderAllSections();
     }
     lastSyncOk = true;
+    needsReconnect = false;
     return true;
   } catch (e) {
     lastSyncOk = false;
+    if (isAuthError(e)) needsReconnect = true;
     return false;
   } finally {
     syncInFlight = false;
-    updateSyncStatusBadge(lastSyncOk ? 'synced' : 'error');
+    updateSyncStatusBadge(needsReconnect ? 'needs-reconnect' : (lastSyncOk ? 'synced' : 'error'));
+  }
+}
+
+async function reconnectDrive() {
+  syncInFlight = true;
+  updateSyncStatusBadge('syncing');
+  try {
+    await DriveSync.requestToken(true);
+    needsReconnect = false;
+    await pullStateFromDrive();
+  } catch (e) {
+    needsReconnect = true;
+    updateSyncStatusBadge('needs-reconnect');
+  } finally {
+    syncInFlight = false;
   }
 }
 
 function updateSyncStatusBadge(status) {
-  // 'syncing' | 'synced' | 'error' | 'offline' | 'disconnected'
+  // 'syncing' | 'synced' | 'error' | 'offline' | 'disconnected' | 'needs-reconnect'
   const dot = document.getElementById('topbar-sync-dot');
   if (!dot) return;
   const map = {
-    syncing:      { color: 'var(--warn)',   title: 'Sincronizando…' },
-    synced:       { color: 'var(--accent)', title: 'Sincronizado com o Google Drive' },
-    error:        { color: 'var(--danger)', title: 'Falha ao sincronizar — verifique a conexão' },
-    offline:      { color: 'var(--subtle)', title: 'Sem internet — dados salvos só localmente' },
-    disconnected: { color: 'var(--subtle)', title: 'Sincronização não configurada' },
+    syncing:        { color: 'var(--warn)',   title: 'Sincronizando…' },
+    synced:         { color: 'var(--accent)', title: 'Sincronizado com o Google Drive' },
+    error:          { color: 'var(--danger)', title: 'Falha ao sincronizar — verifique a conexão' },
+    offline:        { color: 'var(--subtle)', title: 'Sem internet — dados salvos só localmente' },
+    disconnected:   { color: 'var(--subtle)', title: 'Sincronização não configurada' },
+    'needs-reconnect': { color: 'var(--warn)', title: 'Sessão expirada — toque para reconectar' },
   };
   const cfg = map[status] || map.disconnected;
   dot.style.background = cfg.color;
@@ -1292,6 +1318,17 @@ function renderSyncSection() {
         <i class="ti ti-cloud-off" aria-hidden="true"></i>
         <p>Sincronização ainda não configurada neste dispositivo.</p>
       </div>`;
+    return;
+  }
+
+  if (needsReconnect) {
+    box.innerHTML = `
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+        <span class="badge orange">Sessão expirada</span>
+      </div>
+      <p style="font-size:12px;color:var(--subtle);margin-bottom:14px">Sua sessão com o Google expirou (isso é normal a cada alguns dias). Toque no botão abaixo para reconectar — seus dados locais não foram afetados.</p>
+      <button class="btn primary" onclick="reconnectDrive()"><i class="ti ti-refresh" aria-hidden="true"></i> Reconectar ao Google Drive</button>
+    `;
     return;
   }
 
@@ -2192,7 +2229,13 @@ async function init() {
     document.head.appendChild(s);
   }
 
-  // Sincronização com Google Drive, se já configurada neste dispositivo
+  // Sincronização com Google Drive, se já configurada neste dispositivo.
+  // Não tentamos login silencioso automático aqui: em alguns navegadores/
+  // condições, uma falha do Google Identity Services nessa chamada pode
+  // navegar a página inteira para uma tela de erro do Google, fora do
+  // alcance do try/catch do JS. Em vez disso, mostramos "reconectar" e
+  // deixamos o usuário disparar a renovação com um toque — mais lento,
+  // porém confiável.
   DriveSync.setStatusCallback((s) => {
     if (!s.connected) updateSyncStatusBadge('disconnected');
   });
@@ -2200,13 +2243,8 @@ async function init() {
     if (!navigator.onLine) {
       updateSyncStatusBadge('offline');
     } else {
-      await DriveSync.init();
-      try {
-        await DriveSync.requestToken(false); // tenta silenciosamente (token cacheado pelo Google)
-        await pullStateFromDrive();
-      } catch (e) {
-        updateSyncStatusBadge('error');
-      }
+      needsReconnect = true;
+      updateSyncStatusBadge('needs-reconnect');
     }
   } else {
     updateSyncStatusBadge('disconnected');
