@@ -1008,9 +1008,14 @@
         <div class="panel">
           <div class="panel-header">
             <span class="panel-title">Lançamentos <span id="tx-period-label" style="color:var(--muted);font-weight:500;font-size:13px"></span></span>
-            <select id="filter-tipo" onchange="renderTxList()" style="font-size:12px;padding:6px 12px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--card-bg);color:var(--text);font-family:var(--font-sans);font-weight:600;">
-              <option value="all">Todos</option><option value="income">Ganhos</option><option value="expense">Despesas</option>
-            </select>
+            <div style="display:flex;gap:8px;align-items:center">
+              <select id="filter-tipo" onchange="renderTxList()" style="font-size:12px;padding:6px 12px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--card-bg);color:var(--text);font-family:var(--font-sans);font-weight:600;">
+                <option value="all">Todos</option><option value="income">Ganhos</option><option value="expense">Despesas</option>
+              </select>
+              <button class="btn btn-sm danger" onclick="clearPeriodTransactions()" title="Apagar todos os lançamentos do período selecionado">
+                <i class="ti ti-trash" aria-hidden="true"></i> Limpar período
+              </button>
+            </div>
           </div>
           <div id="tx-list"></div>
         </div>
@@ -1813,6 +1818,23 @@ function addTx() {
   document.getElementById('tx-val').value  = '';
   save();
   buildMonthGrid();
+  renderTxList();
+  renderDashboard();
+}
+
+function clearPeriodTransactions() {
+  const toRemove = getFilteredTransactions();
+  if (!toRemove.length) {
+    alert('Não há lançamentos no período selecionado para apagar.');
+    return;
+  }
+  const label = getPeriodLabel();
+  const confirmMsg = `Isso vai apagar ${toRemove.length} lançamento(s) de "${label}" — só desse período, os outros meses não são afetados.\n\nEssa ação não pode ser desfeita. Confirmar?`;
+  if (!confirm(confirmMsg)) return;
+
+  const idsToRemove = new Set(toRemove.map(t => t.id));
+  state.transactions = state.transactions.filter(t => !idsToRemove.has(t.id));
+  save();
   renderTxList();
   renderDashboard();
 }
