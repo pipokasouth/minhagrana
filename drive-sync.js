@@ -41,8 +41,18 @@ const DriveSync = (() => {
   }
 
   async function ensureGisLoaded() {
-    if (gisLoaded) return;
     await loadScript('https://accounts.google.com/gsi/client');
+    // Espera ativamente o objeto global ficar disponível — o script pode
+    // ter terminado de carregar (onload) antes do `google.accounts` estar
+    // de fato pronto para uso em alguns navegadores/condições de rede.
+    let tries = 0;
+    while ((!window.google || !window.google.accounts) && tries < 50) {
+      await new Promise((r) => setTimeout(r, 100));
+      tries++;
+    }
+    if (!window.google || !window.google.accounts) {
+      throw new Error('google-identity-services-not-available');
+    }
     gisLoaded = true;
   }
 
@@ -53,6 +63,9 @@ const DriveSync = (() => {
       return false;
     }
     await ensureGisLoaded();
+    // Sempre recria o tokenClient com o client_id ATUAL salvo, mesmo se já
+    // existir um de uma inicialização anterior — evita usar um client_id
+    // desatualizado/vazio capturado por closure numa sessão anterior.
     tokenClient = google.accounts.oauth2.initTokenClient({
       client_id: clientId,
       scope: SCOPES,
@@ -63,22 +76,31 @@ const DriveSync = (() => {
 
   function requestToken(interactive = true) {
     return new Promise(async (resolve, reject) => {
-      if (!tokenClient) {
-        const ok = await init();
-        if (!ok) return reject(new Error('no-client-id'));
-      }
+      // Sempre garante um tokenClient fresco e válido para ESTA chamada,
+      // em vez de confiar em um estado de inicialização anterior que pode
+      // ter ficado inconsistente (ex: client_id mudou, ou init() parcial).
+      const ok = await init().catch(() => false);
+      if (!ok || !tokenClient) return reject(new Error('no-client-id'));
+
       tokenClient.callback = (resp) => {
         if (resp.error) return reject(resp);
         accessToken = resp.access_token;
         onStatusChange({ connected: true });
         resolve(accessToken);
       };
-      tokenClient.requestAccessToken({ prompt: interactive ? 'consent' : '' });
+      tokenClient.error_callback = (err) => reject(err);
+      try {
+        tokenClient.requestAccessToken({ prompt: interactive ? 'consent' : '' });
+      } catch (e) {
+        reject(e);
+      }
     });
   }
 
   async function apiFetch(url, options = {}) {
-    if (!accessToken) await requestToken(false).catch(() => requestToken(true));
+    if (!accessToken) {
+      throw new Error('not-authenticated'); // força reconexão explícita pelo usuário
+    }
     const res = await fetch(url, {
       ...options,
       headers: {
@@ -88,8 +110,7 @@ const DriveSync = (() => {
     });
     if (res.status === 401) {
       accessToken = null;
-      await requestToken(true);
-      return apiFetch(url, options);
+      throw new Error('token-expired'); // força reconexão explícita pelo usuário
     }
     return res;
   }
