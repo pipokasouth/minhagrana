@@ -90,7 +90,12 @@ const DriveSync = (() => {
       };
       tokenClient.error_callback = (err) => reject(err);
       try {
-        tokenClient.requestAccessToken({ prompt: interactive ? 'consent' : '' });
+        // 'select_account' força o Google a sempre mostrar a tela de escolha
+        // de conta, mesmo quando só existe uma sessão ativa no navegador —
+        // sem isso, ele pula direto para a única conta logada.
+        tokenClient.requestAccessToken({
+          prompt: interactive ? 'select_account consent' : '',
+        });
       } catch (e) {
         reject(e);
       }
