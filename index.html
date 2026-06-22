@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>minhagrana — Dashboard Financeiro</title>
-
   <!-- PWA -->
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#0b0f17">
@@ -13,15 +12,12 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="minhagrana">
-
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-
   <style>
     /* ─── RESET ─── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     /* ─── DESIGN TOKENS (DARK MODE VARIANT) ─── */
     :root {
       --accent:        #0f976e;
@@ -33,7 +29,6 @@
       --warn-light:    rgba(251,191,36,0.12);
       --blue:          #60a5fa;
       --blue-light:    rgba(96,165,250,0.12);
-
       --bg-app:   #0b0f17;
       --card-bg:  #131a26;
       --surface:  #1e293b;
@@ -41,20 +36,16 @@
       --text:     #f1f5f9;
       --muted:    #94a3b8;
       --subtle:   #64748b;
-
       --radius-xs: 6px;
       --radius-sm: 10px;
       --radius-md: 14px;
       --radius-lg: 20px;
-
       --shadow-sm: 0 1px 3px rgba(0,0,0,0.25);
       --shadow-md: 0 4px 12px rgba(0,0,0,0.35);
       --shadow-lg: 0 12px 28px rgba(0,0,0,0.45);
-
       --font-sans: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
       --font-mono: 'DM Mono', monospace;
     }
-
     body {
       font-family: var(--font-sans);
       background: var(--bg-app);
@@ -62,13 +53,11 @@
       -webkit-font-smoothing: antialiased;
       min-height: 100vh;
     }
-
     /* ─── LAYOUT SHELL ─── */
     .shell {
       display: flex;
       min-height: 100vh;
     }
-
     /* ─── SIDEBAR ─── */
     .sidebar {
       width: 220px;
@@ -84,7 +73,6 @@
       overflow-y: auto;
       z-index: 10;
     }
-
     .sidebar-logo {
       padding: 24px 20px 20px;
       border-bottom: 1px solid var(--border);
@@ -104,7 +92,6 @@
       font-weight: 500;
       letter-spacing: 0.4px;
     }
-
     /* ─── PERIOD PICKER ─── */
     .period-section {
       padding: 8px 12px;
@@ -148,7 +135,6 @@
       transition: all 0.15s;
     }
     .year-btn:hover { background: var(--surface); color: var(--text); }
-
     .month-all {
       display: flex;
       align-items: center;
@@ -170,7 +156,6 @@
       border-color: rgba(15,151,110,0.3);
     }
     .month-all.active i { color: var(--accent); }
-
     .months-grid {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
@@ -207,7 +192,6 @@
     }
     .month-btn.active::after { background: rgba(255,255,255,0.7); }
     .month-btn.current-month { font-style: italic; color: var(--text); }
-
     /* ─── MAIN AREA ─── */
     .main {
       flex: 1;
@@ -215,7 +199,6 @@
       display: flex;
       flex-direction: column;
     }
-
     /* ─── TOPBAR ─── */
     .topbar {
       display: flex;
@@ -257,7 +240,6 @@
       font-weight: 600;
       color: var(--muted);
     }
-
     /* ─── TAB NAVIGATION ─── */
     .section-tabs {
       display: flex;
@@ -282,7 +264,6 @@
     .stab i { font-size: 16px; }
     .stab:hover { color: var(--text); }
     .stab.active { color: var(--accent); border-bottom-color: var(--accent); }
-
     /* ─── CONTENT ─── */
     .content {
       padding: 24px 28px;
@@ -290,12 +271,10 @@
     }
     .section { display: none; }
     .section.active { display: block; animation: fadeUp 0.25s ease; }
-
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(6px); }
       to   { opacity: 1; transform: translateY(0); }
     }
-
     /* ─── METRIC CARDS ─── */
     .cards-row {
       display: grid;
@@ -339,7 +318,6 @@
       margin-top: 6px;
       font-weight: 500;
     }
-
     /* ─── PANELS ─── */
     .panel {
       background: var(--card-bg);
@@ -361,7 +339,6 @@
       color: var(--text);
       letter-spacing: -0.3px;
     }
-
     /* ─── BUTTONS ─── */
     .btn {
       padding: 9px 16px;
@@ -389,7 +366,6 @@
     .btn.danger { background: var(--danger-light); color: var(--danger); border-color: transparent; }
     .btn.danger:hover { background: var(--danger); color: #fff; }
     .btn-sm { padding: 5px 10px; font-size: 12px; border-radius: var(--radius-xs); }
-
     /* ─── TRANSACTIONS ─── */
     .tx-item {
       display: flex;
@@ -416,7 +392,6 @@
     .tx-amount.pos { color: var(--accent); }
     .tx-amount.neg { color: var(--danger); }
     .tx-date   { font-size: 11px; color: var(--muted); text-align: right; margin-top: 2px; }
-
     /* ─── FORMS ─── */
     .form-row { display: flex; gap: 14px; margin-bottom: 14px; flex-wrap: wrap; }
     .form-group { flex: 1; min-width: 160px; }
@@ -446,7 +421,6 @@
       background: var(--surface);
       box-shadow: 0 0 0 3px rgba(15,151,110,0.25);
     }
-
     /* ─── BAR CHART ─── */
     .bar-chart {
       display: flex;
@@ -465,7 +439,6 @@
     .bar-legend { display: flex; gap: 16px; justify-content: flex-end; margin-top: 12px; }
     .bar-leg-item { display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; color: var(--muted); }
     .bar-leg-dot { width: 10px; height: 10px; border-radius: 3px; }
-
     /* ─── CREDIT CARDS ─── */
     .credit-card {
       border-radius: var(--radius-lg);
@@ -517,7 +490,6 @@
       transition: all 0.15s;
     }
     .cc-remove-btn:hover { background: rgba(255,255,255,0.2); }
-
     /* ─── INVESTMENTS ─── */
     .invest-item { display: flex; align-items: center; gap: 14px; padding: 14px 0; border-bottom: 1px solid var(--border); }
     .invest-item:last-child { border-bottom: none; }
@@ -530,7 +502,6 @@
     .invest-ret { font-size: 12px; font-weight: 700; margin-top: 3px; }
     .invest-ret.pos { color: var(--accent); }
     .invest-ret.neg { color: var(--danger); }
-
     /* ─── GOALS ─── */
     .goal-item { padding: 18px 0; border-bottom: 1px solid var(--border); }
     .goal-item:last-child { border-bottom: none; }
@@ -545,21 +516,18 @@
     .goal-bar-wrap { height: 8px; background: var(--surface); border-radius: 4px; overflow: hidden; margin-bottom: 8px; }
     .goal-bar { height: 100%; border-radius: 4px; transition: width 0.6s cubic-bezier(0.4,0,0.2,1); }
     .goal-sub { display: flex; justify-content: space-between; font-size: 12px; font-weight: 600; color: var(--muted); }
-
     /* ─── DONUT ─── */
     .donut-row { display: flex; align-items: center; gap: 28px; flex-wrap: wrap; padding: 8px 0; }
     .donut-svg { flex-shrink: 0; transform: rotate(-90deg); }
     .donut-legend { flex: 1; display: flex; flex-direction: column; gap: 10px; min-width: 160px; }
     .legend-item { display: flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 500; }
     .legend-dot { width: 12px; height: 12px; border-radius: 4px; flex-shrink: 0; }
-
     /* ─── BADGES ─── */
     .badge { display: inline-flex; padding: 3px 8px; border-radius: 5px; font-size: 11px; font-weight: 700; letter-spacing: 0.3px; }
     .badge.green { background: var(--accent-light); color: var(--accent); }
     .badge.red   { background: var(--danger-light);  color: var(--danger); }
     .badge.blue  { background: var(--blue-light);    color: var(--blue); }
     .badge.orange { background: var(--warn-light);   color: var(--warn); }
-
     /* ─── ANNUAL VIEW ─── */
     .annual-summary {
       display: grid;
@@ -579,7 +547,6 @@
     .annual-month-card .month-name { font-size: 12px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
     .annual-month-card .month-balance { font-size: 16px; font-weight: 700; font-family: var(--font-mono); }
     .annual-month-card .month-breakdown { display: flex; justify-content: space-between; margin-top: 4px; font-size: 11px; color: var(--muted); font-weight: 600; }
-
     /* ─── MODAL ─── */
     .modal-bg {
       display: none;
@@ -605,7 +572,6 @@
     .modal-sub { font-size: 14px; color: var(--muted); line-height: 1.5; }
     .modal-actions { display: flex; gap: 10px; justify-content: center; margin-top: 24px; }
     .modal-actions .btn { flex: 1; }
-
     /* ─── EMPTY STATE ─── */
     .empty {
       display: flex; flex-direction: column; align-items: center; justify-content: center;
@@ -613,10 +579,8 @@
     }
     .empty i { font-size: 32px; color: var(--border); }
     .empty p { font-size: 14px; font-weight: 500; }
-
     /* ─── TWO COLS ─── */
     .two-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-
     /* ─── PARCELAMENTO ─── */
     .parcelado-toggle {
       display: flex;
@@ -687,7 +651,6 @@
       font-weight: 700;
       margin-top: 3px;
     }
-
     /* ─── CORES DO CARTÃO ─── */
     .color-picker-row {
       display: flex;
@@ -715,7 +678,6 @@
       margin-bottom: 6px;
       display: block;
     }
-
     /* ─── FORMA DE PAGAMENTO ─── */
     .payment-method-section {
       margin-bottom: 14px;
@@ -774,7 +736,6 @@
       color: var(--blue);
       margin-top: 3px;
     }
-
     /* ─── EXPORT BUTTON ─── */
     .export-btn {
       display: inline-flex;
@@ -794,7 +755,6 @@
     }
     .export-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(15,151,110,0.45); }
     .export-btn i { font-size: 16px; }
-
     /* ─── RESPONSIVE ─── */
     @media (max-width: 900px) {
       .shell { flex-direction: column; }
@@ -813,7 +773,6 @@
   </style>
 </head>
 <body>
-
 <div class="shell">
   <!-- ══════════════════ SIDEBAR ══════════════════ -->
   <aside class="sidebar">
@@ -821,10 +780,8 @@
       <div class="logo">minha<span>grana</span></div>
       <div class="logo-sub">CONTROLE FINANCEIRO</div>
     </div>
-
     <div class="period-section">
       <div class="period-label">Período</div>
-
       <div class="period-year">
         <span class="year-display" id="sidebar-year">2026</span>
         <div class="year-btns">
@@ -832,18 +789,15 @@
           <button class="year-btn" onclick="changeYear(1)"  aria-label="Próximo ano"><i class="ti ti-chevron-right"></i></button>
         </div>
       </div>
-
       <div class="month-all active" id="period-all" onclick="selectPeriod('all')">
         <i class="ti ti-calendar-stats" aria-hidden="true"></i>
         Ano todo
       </div>
-
       <div class="months-grid" id="months-grid">
         <!-- Rendered by JS -->
       </div>
     </div>
   </aside>
-
   <!-- ══════════════════ MAIN ══════════════════ -->
   <main class="main">
     <header class="topbar">
@@ -858,22 +812,19 @@
         <span class="today-badge" id="hoje-date"></span>
       </div>
     </header>
-
     <!-- Tab navigation -->
     <div class="section-tabs">
       <div class="stab active" onclick="switchSection('dashboard')" id="stab-dashboard"><i class="ti ti-layout-dashboard" aria-hidden="true"></i>Visão geral</div>
       <div class="stab" onclick="switchSection('lancamentos')" id="stab-lancamentos"><i class="ti ti-arrows-exchange" aria-hidden="true"></i>Lançamentos</div>
       <div class="stab" onclick="switchSection('cartoes')" id="stab-cartoes"><i class="ti ti-credit-card" aria-hidden="true"></i>Cartões</div>
+      <div class="stab" onclick="switchSection('fatura')" id="stab-fatura"><i class="ti ti-file-invoice" aria-hidden="true"></i>Fatura</div>
       <div class="stab" onclick="switchSection('investimentos')" id="stab-investimentos"><i class="ti ti-trending-up" aria-hidden="true"></i>Investimentos</div>
       <div class="stab" onclick="switchSection('metas')" id="stab-metas"><i class="ti ti-target" aria-hidden="true"></i>Metas</div>
       <div class="stab" onclick="switchSection('sync')" id="stab-sync"><i class="ti ti-cloud" aria-hidden="true"></i>Sincronização</div>
     </div>
-
     <div class="content">
-
       <!-- ── DASHBOARD ── -->
       <div class="section active" id="section-dashboard">
-
         <div class="cards-row">
           <div class="metric">
             <div class="metric-label"><i class="ti ti-arrow-up-right" style="color:var(--accent)" aria-hidden="true"></i>Ganhos</div>
@@ -896,7 +847,6 @@
             <div class="metric-sub" id="d-invest-sub"></div>
           </div>
         </div>
-
         <!-- Annual view grid (only shown when period = 'all') -->
         <div id="annual-view" style="display:none">
           <div class="panel">
@@ -906,7 +856,6 @@
             <div class="annual-summary" id="annual-months-grid"></div>
           </div>
         </div>
-
         <div class="two-cols">
           <div class="panel">
             <div class="panel-header"><span class="panel-title">Gastos por categoria</span></div>
@@ -917,7 +866,6 @@
             <div id="dash-recent"></div>
           </div>
         </div>
-
         <div class="panel">
           <div class="panel-header">
             <span class="panel-title" id="barchart-title">Entradas e saídas — últimos 6 meses</span>
@@ -929,7 +877,6 @@
           </div>
         </div>
       </div>
-
       <!-- ── LANÇAMENTOS ── -->
       <div class="section" id="section-lancamentos">
         <div class="panel">
@@ -943,18 +890,21 @@
             </div>
             <div class="form-group"><label>Descrição</label><input id="tx-desc" placeholder="Ex: Salário, Mercado..." /></div>
             <div class="form-group"><label>Categoria</label>
-              <select id="tx-cat">
-                <option>Salário</option><option>Freelance</option><option>Investimento</option>
-                <option>Alimentação</option><option>Transporte</option><option>Moradia</option>
-                <option>Saúde</option><option>Lazer</option><option>Educação</option><option>Outros</option>
+              <select id="tx-cat" onchange="toggleNewCatField('tx')">
+                <!-- rendered by JS: renderCategoryOptions() -->
               </select>
+            </div>
+          </div>
+          <div class="form-row" id="tx-newcat-row" style="display:none">
+            <div class="form-group">
+              <label>Nome da nova categoria</label>
+              <input id="tx-newcat" placeholder="Ex: Beleza, Pet..." />
             </div>
           </div>
           <div class="form-row">
             <div class="form-group"><label>Valor (R$)</label><input id="tx-val" type="number" placeholder="0,00" min="0" /></div>
             <div class="form-group"><label>Data da compra</label><input id="tx-date" type="date" /></div>
           </div>
-
           <!-- FORMA DE PAGAMENTO -->
           <div class="payment-method-section">
             <div class="payment-method-label"><i class="ti ti-wallet" aria-hidden="true"></i> Forma de pagamento</div>
@@ -962,7 +912,6 @@
               <!-- rendered by JS -->
             </div>
           </div>
-
           <!-- PARCELAMENTO -->
           <div class="parcelado-toggle">
             <label><i class="ti ti-credit-card"></i> Esta compra é parcelada?</label>
@@ -971,7 +920,6 @@
               <button class="toggle-btn" id="parc-sim" onclick="setParcelado(true)">Sim</button>
             </div>
           </div>
-
           <div class="parcelamento-details" id="parcelamento-details">
             <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px">
               <i class="ti ti-info-circle" style="color:var(--accent)"></i>
@@ -997,14 +945,12 @@
               </div>
             </div>
           </div>
-
           <div class="form-row">
             <div class="form-group" style="display:flex;align-items:flex-end">
               <button class="btn primary" onclick="addTx()" style="width:100%"><i class="ti ti-plus" aria-hidden="true"></i> Adicionar</button>
             </div>
           </div>
         </div>
-
         <div class="panel">
           <div class="panel-header">
             <span class="panel-title">Lançamentos <span id="tx-period-label" style="color:var(--muted);font-weight:500;font-size:13px"></span></span>
@@ -1020,7 +966,6 @@
           <div id="tx-list"></div>
         </div>
       </div>
-
       <!-- ── CARTÕES ── -->
       <div class="section" id="section-cartoes">
         <div class="panel">
@@ -1051,7 +996,78 @@
         </div>
         <div id="cards-list"></div>
       </div>
-
+      <!-- ── FATURA ── -->
+      <div class="section" id="section-fatura">
+        <div class="panel">
+          <div class="panel-header">
+            <span class="panel-title">Novo gasto no cartão</span>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label>Descrição</label><input id="fat-desc" placeholder="Ex: Netflix, Academia, TV parcelada..." /></div>
+            <div class="form-group"><label>Categoria</label>
+              <select id="fat-cat" onchange="toggleNewCatField('fat')">
+                <!-- rendered by JS: renderCategoryOptions() -->
+              </select>
+            </div>
+          </div>
+          <div class="form-row" id="fat-newcat-row" style="display:none">
+            <div class="form-group">
+              <label>Nome da nova categoria</label>
+              <input id="fat-newcat" placeholder="Ex: Beleza, Pet..." />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label>Valor (R$)</label><input id="fat-val" type="number" placeholder="0,00" min="0" /></div>
+            <div class="form-group"><label>Data da compra</label><input id="fat-date" type="date" /></div>
+          </div>
+          <!-- CARTÃO -->
+          <div class="payment-method-section">
+            <div class="payment-method-label"><i class="ti ti-credit-card" aria-hidden="true"></i> Cartão</div>
+            <div class="payment-options" id="fatura-payment-options">
+              <!-- rendered by JS -->
+            </div>
+          </div>
+          <!-- PARCELAMENTO -->
+          <div class="parcelado-toggle">
+            <label><i class="ti ti-credit-card"></i> Esta compra é parcelada?</label>
+            <div class="toggle-btns">
+              <button class="toggle-btn" id="fat-parc-nao" onclick="setFatParcelado(false)">Não</button>
+              <button class="toggle-btn" id="fat-parc-sim" onclick="setFatParcelado(true)">Sim</button>
+            </div>
+          </div>
+          <div class="parcelamento-details" id="fat-parcelamento-details">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px">
+              <i class="ti ti-info-circle" style="color:var(--accent)"></i>
+              <span style="font-size:13px;color:var(--muted);font-weight:500">
+                O lançamento será distribuído automaticamente em cada mês das parcelas.
+              </span>
+            </div>
+            <div class="form-row" style="margin-bottom:0">
+              <div class="form-group">
+                <label>Qtd de parcelas</label>
+                <input id="fat-parc-qtd" type="number" min="2" max="48" placeholder="Ex: 12" oninput="calcFatParcelas()" />
+              </div>
+              <div class="form-group">
+                <label>Mês da 1ª parcela</label>
+                <input id="fat-parc-inicio" type="month" oninput="calcFatParcelas()" />
+              </div>
+              <div class="form-group">
+                <label>Mês da última parcela</label>
+                <input id="fat-parc-fim" type="month" readonly style="background:var(--surface);color:var(--muted)" />
+              </div>
+              <div class="form-group" style="display:flex;align-items:flex-end;flex-direction:column;justify-content:flex-end">
+                <div id="fat-parc-preview" style="font-size:12px;color:var(--muted);margin-bottom:6px;font-weight:500;text-align:right"></div>
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group" style="display:flex;align-items:flex-end">
+              <button class="btn primary" onclick="addFaturaTx()" style="width:100%"><i class="ti ti-plus" aria-hidden="true"></i> Adicionar ao cartão</button>
+            </div>
+          </div>
+        </div>
+        <div id="fatura-list"></div>
+      </div>
       <!-- ── INVESTIMENTOS ── -->
       <div class="section" id="section-investimentos">
         <div class="cards-row">
@@ -1078,7 +1094,6 @@
           <div id="inv-list"></div>
         </div>
       </div>
-
       <!-- ── METAS ── -->
       <div class="section" id="section-metas">
         <div class="panel">
@@ -1109,14 +1124,12 @@
           <div id="metas-list"></div>
         </div>
       </div>
-
       <!-- ── SINCRONIZAÇÃO ── -->
       <div class="section" id="section-sync">
         <div class="panel">
           <div class="panel-header"><span class="panel-title">Status da sincronização</span></div>
           <div id="sync-status-box"></div>
         </div>
-
         <div class="panel" id="sync-setup-panel">
           <div class="panel-header"><span class="panel-title">Configurar Google Drive</span></div>
           <p style="font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:16px">
@@ -1134,7 +1147,6 @@
             </div>
           </div>
         </div>
-
         <div class="panel" id="sync-actions-panel" style="display:none">
           <div class="panel-header"><span class="panel-title">Ações</span></div>
           <div style="display:flex;gap:10px;flex-wrap:wrap">
@@ -1149,11 +1161,9 @@
           </p>
         </div>
       </div>
-
     </div><!-- /content -->
   </main>
 </div>
-
 <!-- ══ MODAL ══ -->
 <div class="modal-bg" id="modal-del" role="dialog" aria-modal="true" aria-labelledby="modal-title">
   <div class="modal">
@@ -1166,7 +1176,6 @@
     </div>
   </div>
 </div>
-
 <script src="drive-sync.js"></script>
 <script>
 if ('serviceWorker' in navigator) {
@@ -1184,16 +1193,15 @@ let state = {
   cards: [],
   investments: [],
   goals: [],
+  customCategories: [], // categorias adicionadas manualmente pelo usuário
   filterPeriod: 'all',  // 'all' or 0-11 (month index)
   filterYear: new Date().getFullYear()
 };
 let deleteTarget = null;
-
 const COLORS = ['#0f976e','#3b82f6','#f59e0b','#9333ea','#df4747','#0891b2','#16a34a','#e11d48'];
 const MONTH_NAMES = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
 const MONTH_FULL  = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
 const ICONS_MAP   = {'ti-plane':'✈','ti-home':'🏠','ti-car':'🚗','ti-school':'📚','ti-heart':'❤','ti-device-laptop':'💻','ti-star':'⭐'};
-
 /* ══════════════════════════════════════════════
    PERSISTENCE  (localStorage + Google Drive)
 ══════════════════════════════════════════════ */
@@ -1201,7 +1209,6 @@ let syncDebounceTimer = null;
 let syncInFlight = false;
 let lastSyncOk = null; // null = nunca tentou, true/false = resultado da última tentativa
 let needsReconnect = false; // true quando o token expirou e precisa de um toque do usuário
-
 function save() {
   try { localStorage.setItem('mgrana_state_v2', JSON.stringify(state)); } catch(e) {}
   scheduleDriveSync();
@@ -1216,17 +1223,14 @@ function load() {
     }
   } catch(e) {}
 }
-
 function scheduleDriveSync() {
   if (!DriveSync.isConnected() || needsReconnect) return;
   clearTimeout(syncDebounceTimer);
   syncDebounceTimer = setTimeout(() => { pushStateToDrive(); }, 2500);
 }
-
 function isAuthError(e) {
   return e && (e.message === 'not-authenticated' || e.message === 'token-expired');
 }
-
 async function pushStateToDrive() {
   if (!DriveSync.isConnected() || syncInFlight) return;
   syncInFlight = true;
@@ -1243,7 +1247,6 @@ async function pushStateToDrive() {
     updateSyncStatusBadge(needsReconnect ? 'needs-reconnect' : (lastSyncOk ? 'synced' : 'error'));
   }
 }
-
 async function pullStateFromDrive(silent) {
   if (!DriveSync.isConnected()) return false;
   syncInFlight = true;
@@ -1270,7 +1273,6 @@ async function pullStateFromDrive(silent) {
     updateSyncStatusBadge(needsReconnect ? 'needs-reconnect' : (lastSyncOk ? 'synced' : 'error'));
   }
 }
-
 async function reconnectDrive() {
   syncInFlight = true;
   updateSyncStatusBadge('syncing');
@@ -1285,7 +1287,6 @@ async function reconnectDrive() {
     syncInFlight = false;
   }
 }
-
 function updateSyncStatusBadge(status) {
   // 'syncing' | 'synced' | 'error' | 'offline' | 'disconnected' | 'needs-reconnect'
   const dot = document.getElementById('topbar-sync-dot');
@@ -1303,7 +1304,6 @@ function updateSyncStatusBadge(status) {
   dot.title = cfg.title;
   if (document.getElementById('section-sync')?.classList.contains('active')) renderSyncSection();
 }
-
 /* ══════════════════════════════════════════════
    SYNC UI
 ══════════════════════════════════════════════ */
@@ -1312,11 +1312,9 @@ function renderSyncSection() {
   const setupPanel = document.getElementById('sync-setup-panel');
   const actionsPanel = document.getElementById('sync-actions-panel');
   if (!box) return;
-
   const connected = DriveSync.isConnected();
   setupPanel.style.display = connected ? 'none' : 'block';
   actionsPanel.style.display = connected ? 'block' : 'none';
-
   if (!connected) {
     box.innerHTML = `
       <div class="empty">
@@ -1325,7 +1323,6 @@ function renderSyncSection() {
       </div>`;
     return;
   }
-
   if (needsReconnect) {
     box.innerHTML = `
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
@@ -1336,7 +1333,6 @@ function renderSyncSection() {
     `;
     return;
   }
-
   const statusLabel = !navigator.onLine
     ? { text: 'Sem conexão com a internet', cls: 'red' }
     : syncInFlight
@@ -1344,7 +1340,6 @@ function renderSyncSection() {
       : lastSyncOk === false
         ? { text: 'Falha na última sincronização', cls: 'red' }
         : { text: 'Sincronizado', cls: 'green' };
-
   box.innerHTML = `
     <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
       <span class="badge ${statusLabel.cls}">${statusLabel.text}</span>
@@ -1352,7 +1347,6 @@ function renderSyncSection() {
     <p style="font-size:12px;color:var(--subtle)">Os dados são salvos automaticamente no Google Drive (pasta privada do app) a cada alteração, alguns segundos após você parar de editar.</p>
   `;
 }
-
 async function saveClientIdAndConnect() {
   const input = document.getElementById('sync-client-id');
   const id = input.value.trim();
@@ -1378,7 +1372,6 @@ async function saveClientIdAndConnect() {
     alert('Não foi possível conectar ao Google Drive. Verifique o Client ID e tente novamente.');
   }
 }
-
 async function manualSyncUp() {
   await pushStateToDrive();
   renderSyncSection();
@@ -1396,10 +1389,8 @@ function disconnectDrive() {
     updateSyncStatusBadge('disconnected');
   }
 }
-
 window.addEventListener('online',  () => updateSyncStatusBadge(DriveSync.isConnected() ? 'synced' : 'disconnected'));
 window.addEventListener('offline', () => updateSyncStatusBadge('offline'));
-
 /* ══════════════════════════════════════════════
    FORMATTING
 ══════════════════════════════════════════════ */
@@ -1413,7 +1404,6 @@ function formatDate(d) {
   const p = d.split('-');
   return `${p[2]}/${p[1]}/${p[0]}`;
 }
-
 /* ══════════════════════════════════════════════
    PERIOD HELPERS
 ══════════════════════════════════════════════ */
@@ -1425,12 +1415,10 @@ function getFilteredTransactions() {
     return d.getMonth() === state.filterPeriod;
   });
 }
-
 function getPeriodLabel() {
   if (state.filterPeriod === 'all') return `Ano todo ${state.filterYear}`;
   return `${MONTH_FULL[state.filterPeriod]} ${state.filterYear}`;
 }
-
 /* ══════════════════════════════════════════════
    PERIOD SELECTION
 ══════════════════════════════════════════════ */
@@ -1441,7 +1429,6 @@ function changeYear(delta) {
   renderTopbarPeriod();
   renderAllSections();
 }
-
 function selectPeriod(period) {
   state.filterPeriod = period;
   save();
@@ -1449,21 +1436,17 @@ function selectPeriod(period) {
   renderTopbarPeriod();
   renderAllSections();
 }
-
 function buildMonthGrid() {
   const now = new Date();
   const grid = document.getElementById('months-grid');
   const allBtn = document.getElementById('period-all');
   document.getElementById('sidebar-year').textContent = state.filterYear;
-
   allBtn.classList.toggle('active', state.filterPeriod === 'all');
-
   const monthsWithData = new Set(
     state.transactions
       .filter(t => new Date(t.date + 'T12:00:00').getFullYear() === state.filterYear)
       .map(t => new Date(t.date + 'T12:00:00').getMonth())
   );
-
   grid.innerHTML = MONTH_NAMES.map((m, i) => {
     const isActive  = state.filterPeriod === i;
     const hasData   = monthsWithData.has(i);
@@ -1472,35 +1455,31 @@ function buildMonthGrid() {
                  onclick="selectPeriod(${i})" role="button" aria-pressed="${isActive}" aria-label="${MONTH_FULL[i]}">${m}</div>`;
   }).join('');
 }
-
 function renderTopbarPeriod() {
   document.getElementById('topbar-period-label').textContent = getPeriodLabel();
 }
-
 /* ══════════════════════════════════════════════
    SECTION NAVIGATION
 ══════════════════════════════════════════════ */
 function switchSection(id) {
-  ['dashboard','lancamentos','cartoes','investimentos','metas','sync'].forEach(s => {
+  ['dashboard','lancamentos','cartoes','fatura','investimentos','metas','sync'].forEach(s => {
     document.getElementById('section-' + s)?.classList.remove('active');
     document.getElementById('stab-' + s)?.classList.remove('active');
   });
   document.getElementById('section-' + id).classList.add('active');
   document.getElementById('stab-' + id).classList.add('active');
-
   if (id === 'dashboard')     renderDashboard();
   if (id === 'lancamentos')   renderTxList();
   if (id === 'cartoes')       renderCards();
+  if (id === 'fatura')        { renderFaturaPaymentOptions(); renderFaturaSection(); }
   if (id === 'investimentos') renderInvestments();
   if (id === 'metas')         renderGoals();
   if (id === 'sync')          renderSyncSection();
 }
-
 function renderAllSections() {
   renderDashboard();
   renderTxList();
 }
-
 /* ══════════════════════════════════════════════
    DASHBOARD
 ══════════════════════════════════════════════ */
@@ -1510,10 +1489,8 @@ function renderDashboard() {
   const despesas = filtered.filter(t => t.tipo === 'expense').reduce((s, t) => s + t.val, 0);
   const saldo    = ganhos - despesas;
   const totalInv = state.investments.reduce((s, i) => s + i.val, 0);
-
   const isAll    = state.filterPeriod === 'all';
   const sub      = isAll ? 'acumulado no ano' : MONTH_FULL[state.filterPeriod];
-
   document.getElementById('d-ganhos').textContent    = fmt(ganhos);
   document.getElementById('d-ganhos-sub').textContent = sub;
   document.getElementById('d-despesas').textContent   = fmt(despesas);
@@ -1524,7 +1501,6 @@ function renderDashboard() {
   document.getElementById('d-saldo-sub').textContent  = sub;
   document.getElementById('d-invest').textContent     = fmt(totalInv);
   document.getElementById('d-invest-sub').textContent = 'carteira total';
-
   const annualView = document.getElementById('annual-view');
   const annualLabel = document.getElementById('annual-year-label');
   if (isAll) {
@@ -1534,12 +1510,10 @@ function renderDashboard() {
   } else {
     annualView.style.display = 'none';
   }
-
   renderDonut(filtered);
   renderRecentTx(filtered);
   renderBarChart();
 }
-
 function renderAnnualMonthCards() {
   const grid = document.getElementById('annual-months-grid');
   const now  = new Date();
@@ -1553,7 +1527,6 @@ function renderAnnualMonthCards() {
     const bal = g - d;
     const hasData   = monthTx.length > 0;
     const isCurrent = now.getMonth() === i && now.getFullYear() === state.filterYear;
-
     return `<div class="annual-month-card" onclick="selectPeriod(${i})" role="button" aria-label="Ver ${MONTH_FULL[i]}">
       <div class="month-name">${MONTH_FULL[i]}${isCurrent ? ' •' : ''}</div>
       <div class="month-balance" style="color:${!hasData ? 'var(--subtle)' : bal >= 0 ? 'var(--accent)' : 'var(--danger)'}">${hasData ? fmt(bal) : '—'}</div>
@@ -1561,7 +1534,6 @@ function renderAnnualMonthCards() {
     </div>`;
   }).join('');
 }
-
 function renderDonut(filtered) {
   const catMap = {};
   filtered.filter(t => t.tipo === 'expense')
@@ -1569,12 +1541,10 @@ function renderDonut(filtered) {
   const cats     = Object.entries(catMap).sort((a, b) => b[1] - a[1]);
   const totalExp = cats.reduce((s, c) => s + c[1], 0);
   const dc       = document.getElementById('donut-container');
-
   if (!cats.length) {
     dc.innerHTML = `<div class="empty"><i class="ti ti-chart-donut" aria-hidden="true"></i><p>Sem despesas no período</p></div>`;
     return;
   }
-
   let angle = 0;
   const r = 54, cx = 70, cy = 70;
   const paths = cats.map((c, i) => {
@@ -1586,7 +1556,6 @@ function renderDonut(filtered) {
     const large = a > Math.PI ? 1 : 0;
     return `<path d="M${cx},${cy} L${x1.toFixed(2)},${y1.toFixed(2)} A${r},${r},0,${large},1,${x2.toFixed(2)},${y2.toFixed(2)} Z" fill="${COLORS[i % COLORS.length]}" />`;
   }).join('');
-
   const legend = cats.slice(0, 6).map((c, i) =>
     `<div class="legend-item">
       <div class="legend-dot" style="background:${COLORS[i % COLORS.length]}"></div>
@@ -1594,7 +1563,6 @@ function renderDonut(filtered) {
       <span style="font-weight:700;font-family:var(--font-mono)">${((c[1] / totalExp) * 100).toFixed(0)}%</span>
     </div>`
   ).join('');
-
   dc.innerHTML = `<div class="donut-row">
     <svg class="donut-svg" viewBox="0 0 140 140" width="130" height="130" aria-hidden="true">
       ${paths}
@@ -1604,7 +1572,6 @@ function renderDonut(filtered) {
     <div class="donut-legend">${legend}</div>
   </div>`;
 }
-
 function renderRecentTx(filtered) {
   const recent = document.getElementById('dash-recent');
   const rec    = filtered.slice(0, 6);
@@ -1622,13 +1589,11 @@ function renderRecentTx(filtered) {
       <div class="tx-amount ${t.tipo === 'income' ? 'pos' : 'neg'}">${t.tipo === 'income' ? '+' : '-'}${fmt(t.val)}</div>
     </div>`).join('');
 }
-
 function renderBarChart() {
   const isAll = state.filterPeriod === 'all';
   const bc    = document.getElementById('bar-chart');
   const title = document.getElementById('barchart-title');
   let cols    = [];
-
   if (isAll) {
     title.textContent = `Entradas e saídas por mês — ${state.filterYear}`;
     cols = MONTH_NAMES.map((label, i) => {
@@ -1661,7 +1626,6 @@ function renderBarChart() {
       cols.push({ label: MONTH_NAMES[refMo], g, d });
     }
   }
-
   const maxVal = Math.max(1, ...cols.map(c => Math.max(c.g, c.d)));
   bc.innerHTML = cols.map(c => {
     const gh = Math.round((c.g / maxVal) * 100);
@@ -1676,45 +1640,60 @@ function renderBarChart() {
     </div>`;
   }).join('');
 }
-
 /* ══════════════════════════════════════════════
    FORMA DE PAGAMENTO
 ══════════════════════════════════════════════ */
-let selectedPayment = 'pix'; // default
+let selectedPayment = 'pix'; // default — usado no formulário de Lançamentos (Pix/Débito)
+let selectedFaturaPayment = null; // default — usado no formulário de Fatura (cartões)
 
 function renderPaymentOptions() {
   const el = document.getElementById('payment-options');
   if (!el) return;
-
   const fixed = [
     { id: 'pix',    label: 'Pix',    icon: 'ti-brand-google-photos' },
     { id: 'debito', label: 'Débito', icon: 'ti-credit-card' },
   ];
-
-  const cardOptions = state.cards.map(c => ({
-    id: 'card_' + c.id,
-    label: c.nome + ' ••' + c.num,
-    icon: 'ti-credit-card-pay',
-    cardId: c.id
-  }));
-
-  const all = [...fixed, ...cardOptions];
-
-  // fallback: if selected was a deleted card, reset
-  if (!all.find(o => o.id === selectedPayment)) {
+  // fallback: se a opção selecionada não é mais válida (ex: era cartão e
+  // cartões foram removidos daqui), volta para pix.
+  if (!fixed.find(o => o.id === selectedPayment)) {
     selectedPayment = 'pix';
   }
-
-  el.innerHTML = all.map(o => `
+  el.innerHTML = fixed.map(o => `
     <button class="pay-btn${selectedPayment === o.id ? ' selected' : ''}"
             onclick="selectPayment('${o.id}')" type="button" title="${o.label}">
       <i class="ti ${o.icon}" aria-hidden="true"></i>${o.label}
     </button>`).join('');
 }
-
 function selectPayment(id) {
   selectedPayment = id;
   renderPaymentOptions();
+}
+
+function renderFaturaPaymentOptions() {
+  const el = document.getElementById('fatura-payment-options');
+  if (!el) return;
+  const cardOptions = state.cards.map(c => ({
+    id: 'card_' + c.id,
+    label: c.nome + ' ••' + c.num,
+    icon: 'ti-credit-card-pay',
+  }));
+  if (!cardOptions.length) {
+    el.innerHTML = `<span style="font-size:13px;color:var(--subtle)">Cadastre um cartão na aba Cartões primeiro.</span>`;
+    selectedFaturaPayment = null;
+    return;
+  }
+  if (!selectedFaturaPayment || !cardOptions.find(o => o.id === selectedFaturaPayment)) {
+    selectedFaturaPayment = cardOptions[0].id;
+  }
+  el.innerHTML = cardOptions.map(o => `
+    <button class="pay-btn${selectedFaturaPayment === o.id ? ' selected' : ''}"
+            onclick="selectFaturaPayment('${o.id}')" type="button" title="${o.label}">
+      <i class="ti ${o.icon}" aria-hidden="true"></i>${o.label}
+    </button>`).join('');
+}
+function selectFaturaPayment(id) {
+  selectedFaturaPayment = id;
+  renderFaturaPaymentOptions();
 }
 
 function getPaymentLabel(payId) {
@@ -1731,10 +1710,63 @@ function getPaymentLabel(payId) {
 }
 
 /* ══════════════════════════════════════════════
+   CATEGORIAS (compartilhadas entre Lançamentos e Fatura)
+══════════════════════════════════════════════ */
+const DEFAULT_CATEGORIES = [
+  'Salário', 'Freelance', 'Investimento', 'Assinaturas', 'Academia',
+  'Alimentação', 'Transporte', 'Moradia', 'Saúde', 'Lazer',
+  'Educação', 'Eletrônicos', 'Outros'
+];
+const NEW_CAT_VALUE = '__new__';
+
+function getAllCategories() {
+  // Default + customizadas do usuário, sem duplicar e mantendo "Outros" por último.
+  const custom = state.customCategories.filter(c => !DEFAULT_CATEGORIES.includes(c));
+  const withoutOutros = DEFAULT_CATEGORIES.filter(c => c !== 'Outros');
+  return [...withoutOutros, ...custom, 'Outros'];
+}
+
+function renderCategoryOptions(selectedTx, selectedFat) {
+  const cats = getAllCategories();
+  const optionsHtml = cats.map(c => `<option value="${c}">${c}</option>`).join('')
+    + `<option value="${NEW_CAT_VALUE}">+ Nova categoria...</option>`;
+
+  const txSel = document.getElementById('tx-cat');
+  if (txSel) {
+    txSel.innerHTML = optionsHtml;
+    if (selectedTx && cats.includes(selectedTx)) txSel.value = selectedTx;
+  }
+  const fatSel = document.getElementById('fat-cat');
+  if (fatSel) {
+    fatSel.innerHTML = optionsHtml;
+    if (selectedFat && cats.includes(selectedFat)) fatSel.value = selectedFat;
+  }
+}
+
+function toggleNewCatField(prefix) {
+  const sel = document.getElementById(prefix + '-cat');
+  const row = document.getElementById(prefix + '-newcat-row');
+  if (!sel || !row) return;
+  row.style.display = sel.value === NEW_CAT_VALUE ? 'flex' : 'none';
+}
+
+function resolveCategoryFromForm(prefix) {
+  const sel = document.getElementById(prefix + '-cat');
+  let cat = sel.value;
+  if (cat === NEW_CAT_VALUE) {
+    const newCat = document.getElementById(prefix + '-newcat').value.trim();
+    if (!newCat) return null; // sinaliza erro para quem chamou
+    if (!getAllCategories().includes(newCat)) {
+      state.customCategories.push(newCat);
+    }
+    cat = newCat;
+  }
+  return cat;
+}
+/* ══════════════════════════════════════════════
    PARCELAMENTO
 ══════════════════════════════════════════════ */
 let isParcelado = false;
-
 function setParcelado(val) {
   isParcelado = val;
   document.getElementById('parc-sim').className = 'toggle-btn' + (val ? ' active-yes' : '');
@@ -1744,42 +1776,40 @@ function setParcelado(val) {
   else     { det.classList.remove('open'); }
   calcParcelas();
 }
-
 function calcParcelas() {
   const qtd   = parseInt(document.getElementById('parc-qtd').value) || 0;
   const inicio = document.getElementById('parc-inicio').value;
   const val   = parseFloat(document.getElementById('tx-val').value) || 0;
   const fimEl = document.getElementById('parc-fim');
   const prevEl = document.getElementById('parc-preview');
-
   if (!qtd || !inicio || qtd < 2) {
     fimEl.value = '';
     prevEl.textContent = '';
     return;
   }
-
   const [yr, mo] = inicio.split('-').map(Number);
   const fimDate = new Date(yr, mo - 1 + qtd - 1, 1);
   const fimStr  = `${fimDate.getFullYear()}-${String(fimDate.getMonth() + 1).padStart(2, '0')}`;
   fimEl.value = fimStr;
-
   const valParc = val > 0 ? (val / qtd) : 0;
   prevEl.innerHTML = valParc > 0
     ? `<span class="parcela-info-badge"><i class="ti ti-credit-card"></i>${qtd}x de ${fmt(valParc)}</span>`
     : '';
 }
-
 /* ══════════════════════════════════════════════
    TRANSACTIONS
 ══════════════════════════════════════════════ */
 function addTx() {
   const desc = document.getElementById('tx-desc').value.trim();
   const val  = parseFloat(document.getElementById('tx-val').value);
-  const cat  = document.getElementById('tx-cat').value;
+  const cat  = resolveCategoryFromForm('tx');
   const tipo = document.getElementById('tx-tipo').value;
   const date = document.getElementById('tx-date').value || new Date().toISOString().split('T')[0];
+  if (cat === null) {
+    alert('Digite o nome da nova categoria.');
+    return;
+  }
   if (!desc || isNaN(val) || val <= 0) return;
-
   if (isParcelado) {
     const qtd    = parseInt(document.getElementById('parc-qtd').value) || 0;
     const inicio = document.getElementById('parc-inicio').value;
@@ -1790,7 +1820,6 @@ function addTx() {
     const [yr, mo] = inicio.split('-').map(Number);
     const valParc  = val / qtd;
     const groupId  = Date.now();
-
     for (let i = 0; i < qtd; i++) {
       const pDate = new Date(yr, mo - 1 + i, 10);
       const dateStr = `${pDate.getFullYear()}-${String(pDate.getMonth() + 1).padStart(2,'0')}-10`;
@@ -1813,13 +1842,165 @@ function addTx() {
   } else {
     state.transactions.unshift({ id: Date.now(), desc, val, cat, tipo, date, payment: selectedPayment });
   }
-
   document.getElementById('tx-desc').value = '';
   document.getElementById('tx-val').value  = '';
+  document.getElementById('tx-newcat').value = '';
+  renderCategoryOptions(cat);
+  toggleNewCatField('tx');
   save();
   buildMonthGrid();
   renderTxList();
   renderDashboard();
+}
+
+/* ══════════════════════════════════════════════
+   FATURA (lançamentos exclusivos de cartão de crédito)
+══════════════════════════════════════════════ */
+let isFatParcelado = false;
+
+function setFatParcelado(val) {
+  isFatParcelado = val;
+  document.getElementById('fat-parc-sim').className = 'toggle-btn' + (val ? ' active-yes' : '');
+  document.getElementById('fat-parc-nao').className = 'toggle-btn' + (!val ? ' active-no' : '');
+  const det = document.getElementById('fat-parcelamento-details');
+  if (val) { det.classList.add('open'); }
+  else     { det.classList.remove('open'); }
+  calcFatParcelas();
+}
+
+function calcFatParcelas() {
+  const qtd    = parseInt(document.getElementById('fat-parc-qtd').value) || 0;
+  const inicio = document.getElementById('fat-parc-inicio').value;
+  const val    = parseFloat(document.getElementById('fat-val').value) || 0;
+  const fimEl  = document.getElementById('fat-parc-fim');
+  const prevEl = document.getElementById('fat-parc-preview');
+  if (!qtd || !inicio || qtd < 2) {
+    fimEl.value = '';
+    prevEl.textContent = '';
+    return;
+  }
+  const [yr, mo] = inicio.split('-').map(Number);
+  const fimDate = new Date(yr, mo - 1 + qtd - 1, 1);
+  const fimStr  = `${fimDate.getFullYear()}-${String(fimDate.getMonth() + 1).padStart(2, '0')}`;
+  fimEl.value = fimStr;
+  const valParc = val > 0 ? (val / qtd) : 0;
+  prevEl.innerHTML = valParc > 0
+    ? `<span class="parcela-info-badge"><i class="ti ti-credit-card"></i>${qtd}x de ${fmt(valParc)}</span>`
+    : '';
+}
+
+function addFaturaTx() {
+  if (!selectedFaturaPayment) {
+    alert('Cadastre um cartão na aba Cartões antes de lançar um gasto aqui.');
+    return;
+  }
+  const desc = document.getElementById('fat-desc').value.trim();
+  const val  = parseFloat(document.getElementById('fat-val').value);
+  const cat  = resolveCategoryFromForm('fat');
+  const date = document.getElementById('fat-date').value || new Date().toISOString().split('T')[0];
+  if (cat === null) {
+    alert('Digite o nome da nova categoria.');
+    return;
+  }
+  if (!desc || isNaN(val) || val <= 0) return;
+
+  if (isFatParcelado) {
+    const qtd    = parseInt(document.getElementById('fat-parc-qtd').value) || 0;
+    const inicio = document.getElementById('fat-parc-inicio').value;
+    if (!qtd || qtd < 2 || !inicio) {
+      alert('Preencha a quantidade de parcelas e o mês da primeira parcela.');
+      return;
+    }
+    const [yr, mo] = inicio.split('-').map(Number);
+    const valParc  = val / qtd;
+    const groupId  = Date.now();
+    for (let i = 0; i < qtd; i++) {
+      const pDate = new Date(yr, mo - 1 + i, 10);
+      const dateStr = `${pDate.getFullYear()}-${String(pDate.getMonth() + 1).padStart(2,'0')}-10`;
+      state.transactions.unshift({
+        id: groupId + i,
+        desc,
+        val: valParc,
+        cat,
+        tipo: 'expense',
+        date: dateStr,
+        payment: selectedFaturaPayment,
+        parcela: { num: i + 1, total: qtd, groupId }
+      });
+    }
+    document.getElementById('fat-parc-qtd').value = '';
+    document.getElementById('fat-parc-inicio').value = '';
+    document.getElementById('fat-parc-fim').value = '';
+    document.getElementById('fat-parc-preview').innerHTML = '';
+    setFatParcelado(false);
+  } else {
+    state.transactions.unshift({ id: Date.now(), desc, val, cat, tipo: 'expense', date, payment: selectedFaturaPayment });
+  }
+
+  document.getElementById('fat-desc').value = '';
+  document.getElementById('fat-val').value  = '';
+  document.getElementById('fat-newcat').value = '';
+  renderCategoryOptions(null, cat);
+  toggleNewCatField('fat');
+  save();
+  buildMonthGrid();
+  renderFaturaSection();
+  renderDashboard();
+}
+
+function renderFaturaSection() {
+  const el = document.getElementById('fatura-list');
+  if (!el) return;
+
+  if (!state.cards.length) {
+    el.innerHTML = `<div class="panel"><div class="empty"><i class="ti ti-credit-card-off" aria-hidden="true"></i><p>Cadastre um cartão na aba Cartões para começar a lançar gastos aqui.</p></div></div>`;
+    return;
+  }
+
+  const periodLabel = getPeriodLabel();
+
+  el.innerHTML = state.cards.map(card => {
+    const payId = 'card_' + card.id;
+    const txs = getFilteredTransactions().filter(t => t.tipo === 'expense' && t.payment === payId);
+    const total = txs.reduce((s, t) => s + t.val, 0);
+    const colorObj = CARD_COLORS.find(x => x.id === card.colorId) || CARD_COLORS[11];
+
+    const itemsHtml = txs.length
+      ? txs.map(t => {
+          const parcelaTag = t.parcela
+            ? `<span class="parcela-tag"><i class="ti ti-credit-card"></i>${t.parcela.num}/${t.parcela.total}</span>`
+            : '';
+          return `
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border)">
+            <div>
+              <div style="font-weight:600;font-size:13.5px">${t.desc}</div>
+              <div style="display:flex;gap:6px;align-items:center;margin-top:3px">
+                <span class="badge red" style="padding:1px 6px;font-size:10px">${t.cat}</span>
+                ${parcelaTag}
+                <span style="font-size:11px;color:var(--subtle)">${formatDate(t.date)}</span>
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px">
+              <div style="font-weight:600;color:var(--danger)">${fmt(t.val)}</div>
+              <button class="btn btn-sm danger" onclick="openModal('tx',${t.id})" aria-label="Remover lançamento"><i class="ti ti-trash" aria-hidden="true"></i></button>
+            </div>
+          </div>`;
+        }).join('')
+      : `<div class="empty" style="padding:20px 0"><p>Nenhum gasto neste cartão no período.</p></div>`;
+
+    return `
+      <div class="panel">
+        <div class="panel-header">
+          <span class="panel-title" style="display:flex;align-items:center;gap:10px">
+            <span style="width:10px;height:10px;border-radius:50%;display:inline-block;background:${colorObj.gradient}"></span>
+            ${card.nome} — ${periodLabel}
+          </span>
+          <span class="cc-val" style="font-size:18px">${fmt(total)}</span>
+        </div>
+        <div>${itemsHtml}</div>
+      </div>
+    `;
+  }).join('');
 }
 
 function clearPeriodTransactions() {
@@ -1831,21 +2012,18 @@ function clearPeriodTransactions() {
   const label = getPeriodLabel();
   const confirmMsg = `Isso vai apagar ${toRemove.length} lançamento(s) de "${label}" — só desse período, os outros meses não são afetados.\n\nEssa ação não pode ser desfeita. Confirmar?`;
   if (!confirm(confirmMsg)) return;
-
   const idsToRemove = new Set(toRemove.map(t => t.id));
   state.transactions = state.transactions.filter(t => !idsToRemove.has(t.id));
   save();
   renderTxList();
   renderDashboard();
 }
-
 function renderTxList() {
   const filter   = document.getElementById('filter-tipo')?.value || 'all';
   const filtered = getFilteredTransactions().filter(t => filter === 'all' || t.tipo === filter);
   const list     = document.getElementById('tx-list');
   const label    = document.getElementById('tx-period-label');
   if (label) label.textContent = '— ' + getPeriodLabel();
-
   if (!filtered.length) {
     list.innerHTML = `<div class="empty"><i class="ti ti-file-invoice" aria-hidden="true"></i><p>Nenhum lançamento no período selecionado</p></div>`;
     return;
@@ -1877,7 +2055,6 @@ function renderTxList() {
     </div>`;
   }).join('');
 }
-
 /* ══════════════════════════════════════════════
    CARDS
 ══════════════════════════════════════════════ */
@@ -1895,9 +2072,7 @@ const CARD_COLORS = [
   { id: 'azul',      label: 'Azul/Roxo',  gradient: 'linear-gradient(135deg, #1e3a5f 0%, #3b82f6 100%)' },
   { id: 'escuro',    label: 'Clássico',   gradient: 'linear-gradient(135deg, #0d1b2a 0%, #1e3a5f 100%)' },
 ];
-
 let selectedCardColor = CARD_COLORS[0].id;
-
 function renderColorPicker() {
   const el = document.getElementById('cc-colors');
   if (!el) return;
@@ -1907,12 +2082,10 @@ function renderColorPicker() {
          onclick="selectCardColor('${c.id}')"></div>
   `).join('');
 }
-
 function selectCardColor(id) {
   selectedCardColor = id;
   renderColorPicker();
 }
-
 function addCard() {
   const nome  = document.getElementById('cc-nome').value.trim();
   const band  = document.getElementById('cc-band').value;
@@ -1928,8 +2101,8 @@ function addCard() {
   save();
   renderCards();
   renderPaymentOptions();
+  renderFaturaPaymentOptions();
 }
-
 function renderCards() {
   const el = document.getElementById('cards-list');
   if (!state.cards.length) {
@@ -1959,7 +2132,6 @@ function renderCards() {
     </div>`;
   }).join('');
 }
-
 /* ══════════════════════════════════════════════
    INVESTMENTS
 ══════════════════════════════════════════════ */
@@ -1976,17 +2148,14 @@ function addInvest() {
   save();
   renderInvestments();
 }
-
 function renderInvestments() {
   const total    = state.investments.reduce((s, i) => s + i.val, 0);
   const lucro    = state.investments.reduce((s, i) => s + (i.val * (i.ret / 100)), 0);
   const rentMedia = total > 0 ? (lucro / total) * 100 : 0;
-
   document.getElementById('inv-total').textContent = fmt(total);
   document.getElementById('inv-rent').textContent  = fmtPct(rentMedia);
   document.getElementById('inv-rent').className    = 'metric-value ' + (rentMedia >= 0 ? 'green' : 'red');
   document.getElementById('inv-lucro').textContent = fmt(lucro);
-
   const el = document.getElementById('inv-list');
   if (!state.investments.length) {
     el.innerHTML = `<div class="empty"><i class="ti ti-trending-up" aria-hidden="true"></i><p>Nenhum investimento cadastrado</p></div>`;
@@ -2006,7 +2175,6 @@ function renderInvestments() {
       <button class="btn btn-sm danger" onclick="openModal('inv',${inv.id})" style="margin-left:14px" aria-label="Remover investimento"><i class="ti ti-trash" aria-hidden="true"></i></button>
     </div>`).join('');
 }
-
 /* ══════════════════════════════════════════════
    GOALS
 ══════════════════════════════════════════════ */
@@ -2022,7 +2190,6 @@ function addMeta() {
   save();
   renderGoals();
 }
-
 function renderGoals() {
   const el = document.getElementById('metas-list');
   if (!state.goals.length) {
@@ -2051,7 +2218,6 @@ function renderGoals() {
     </div>`;
   }).join('');
 }
-
 /* ══════════════════════════════════════════════
    MODAL
 ══════════════════════════════════════════════ */
@@ -2073,14 +2239,14 @@ function confirmDelete() {
   renderInvestments();
   renderGoals();
   renderPaymentOptions();
+  renderFaturaPaymentOptions();
+  renderFaturaSection();
 }
-
 /* ══════════════════════════════════════════════
    EXPORT TO EXCEL
 ══════════════════════════════════════════════ */
 function exportToExcel() {
   const wb = { SheetNames: [], Sheets: {} };
-
   function makeSheet(data) {
     const ws = {};
     let maxCol = 0;
@@ -2097,14 +2263,12 @@ function exportToExcel() {
     ws['!ref'] = XLSX_cellRef(0, 0) + ':' + XLSX_cellRef(data.length - 1, maxCol);
     return ws;
   }
-
   function XLSX_cellRef(row, col) {
     let c = '';
     let tmp = col;
     do { c = String.fromCharCode(65 + (tmp % 26)) + c; tmp = Math.floor(tmp / 26) - 1; } while (tmp >= 0);
     return c + (row + 1);
   }
-
   const expenses = state.transactions.filter(t => t.tipo === 'expense').sort((a, b) => a.date.localeCompare(b.date));
   const expData = [
     ['Data', 'Descrição', 'Categoria', 'Valor (R$)', 'Parcela'],
@@ -2118,7 +2282,6 @@ function exportToExcel() {
     [],
     ['TOTAL', '', '', expenses.reduce((s, t) => s + t.val, 0), '']
   ];
-
   const income = state.transactions.filter(t => t.tipo === 'income').sort((a, b) => a.date.localeCompare(b.date));
   const incData = [
     ['Data', 'Descrição', 'Categoria', 'Valor (R$)'],
@@ -2126,14 +2289,12 @@ function exportToExcel() {
     [],
     ['TOTAL', '', '', income.reduce((s, t) => s + t.val, 0)]
   ];
-
   const invData = [
     ['Nome', 'Tipo', 'Valor Aportado (R$)', 'Rentabilidade a.a. (%)', 'Lucro Estimado (R$)'],
     ...state.investments.map(i => [i.nome, i.tipo, i.val, i.ret, i.val * (i.ret / 100)]),
     [],
     ['TOTAL', '', state.investments.reduce((s, i) => s + i.val, 0), '', state.investments.reduce((s, i) => s + i.val * (i.ret / 100), 0)]
   ];
-
   const yr = state.filterYear;
   const resumoData = [
     ['Mês', 'Ganhos (R$)', 'Despesas (R$)', 'Saldo (R$)'],
@@ -2147,13 +2308,11 @@ function exportToExcel() {
       return [m, g, d, g - d];
     })
   ];
-
   wb.SheetNames = ['Despesas', 'Ganhos', 'Investimentos', 'Resumo Mensal'];
   wb.Sheets['Despesas']      = makeSheet(expData);
   wb.Sheets['Ganhos']        = makeSheet(incData);
   wb.Sheets['Investimentos'] = makeSheet(invData);
   wb.Sheets['Resumo Mensal'] = makeSheet(resumoData);
-
   if (typeof XLSX !== 'undefined') {
     XLSX.writeFile(wb, `minhagrana_${yr}.xlsx`);
   } else {
@@ -2163,21 +2322,18 @@ function exportToExcel() {
     document.head.appendChild(script);
   }
 }
-
 /* ══════════════════════════════════════════════
    INIT
 ══════════════════════════════════════════════ */
 document.getElementById('hoje-date').textContent =
   new Date().toLocaleDateString('pt-BR', { weekday: 'long', day: 'numeric', month: 'long' });
 document.getElementById('tx-date').valueAsDate = new Date();
-
+document.getElementById('fat-date').valueAsDate = new Date();
 async function init() {
   load();
-
   if (!state.transactions.length && !state.investments.length && !state.goals.length) {
     const yr = new Date().getFullYear();
     const d = (mo, day) => `${yr}-${String(mo + 1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
-
     state.transactions = [
       { id:101, desc:'Salário',           val:5500,  cat:'Salário',      tipo:'income',  date: d(0,5)  },
       { id:102, desc:'Aluguel',           val:1400,  cat:'Moradia',      tipo:'expense', date: d(0,10) },
@@ -2211,7 +2367,6 @@ async function init() {
       { id:605, desc:'Academia',          val:120,   cat:'Saúde',        tipo:'expense', date: d(5,3)  },
       { id:606, desc:'Uber',              val:68,    cat:'Transporte',   tipo:'expense', date: d(5,20) },
     ];
-
     state.investments = [
       { id:1, nome:'Tesouro Selic 2029', tipo:'Renda Fixa',      val:8000, ret:10.5 },
       { id:2, nome:'PETR4',              tipo:'Ações',            val:3500, ret:18   },
@@ -2219,22 +2374,18 @@ async function init() {
       { id:4, nome:'CDB Nubank',         tipo:'CDB',              val:5000, ret:12   },
       { id:5, nome:'Bitcoin',            tipo:'Criptomoeda',      val:1200, ret:45   },
     ];
-
     state.goals = [
       { id:1, nome:'Viagem Europa',           icon:'ti-plane',         total:15000, guardado:4500,  prazo:`${yr}-12-31` },
       { id:2, nome:'Reserva de emergência',   icon:'ti-heart',         total:20000, guardado:12000, prazo:''           },
       { id:3, nome:'Notebook novo',           icon:'ti-device-laptop', total:5000,  guardado:5000,  prazo:`${yr}-03-01` },
       { id:4, nome:'Entrada apartamento',     icon:'ti-home',          total:80000, guardado:15000, prazo:'2028-06-01' },
     ];
-
     state.cards = [
       { id:1, nome:'Nubank',     band:'master', num:'4321', lim:8000, usado:2300, venc:'10', colorId:'nubank' },
       { id:2, nome:'Itaú Visa',  band:'visa',   num:'7890', lim:5000, usado:1100, venc:'15', colorId:'itau'   },
     ];
-
     save();
   }
-
   buildMonthGrid();
   renderTopbarPeriod();
   renderDashboard();
@@ -2244,13 +2395,15 @@ async function init() {
   renderGoals();
   renderColorPicker();
   renderPaymentOptions();
-
+  renderFaturaPaymentOptions();
+  renderCategoryOptions();
+  toggleNewCatField('tx');
+  toggleNewCatField('fat');
   if (typeof XLSX === 'undefined') {
     const s = document.createElement('script');
     s.src = 'https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js';
     document.head.appendChild(s);
   }
-
   // Sincronização com Google Drive, se já configurada neste dispositivo.
   // Não tentamos login silencioso automático aqui: em alguns navegadores/
   // condições, uma falha do Google Identity Services nessa chamada pode
@@ -2272,7 +2425,6 @@ async function init() {
     updateSyncStatusBadge('disconnected');
   }
 }
-
 init();
 </script>
 </body>
